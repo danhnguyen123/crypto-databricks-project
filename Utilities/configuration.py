@@ -1,5 +1,6 @@
 # Databricks notebook source
-raw_folder_path = "/mnt/crypto-transaction-networks/raw/unstructured_data"
-bronze_folder_path = "/mnt/crypto-lakehouse-dev/bronze"
-bronze_folder_path = "/mnt/crypto-lakehouse-dev/bronze"
-bronze_folder_path = "/mnt/crypto-lakehouse-dev/bronze"
+RAW_FOLDER_PATH = "/mnt/crypto-transaction-networks/unstructured_data"
+CATALOG = "crypto_lakehouse_dev"
+BRONZE_SCHEMA = "bronze"
+SILVER_SCHEMA = "silver"
+GOLD_SCHEMA = "gold"

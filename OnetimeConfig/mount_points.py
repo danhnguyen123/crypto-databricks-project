@@ -26,9 +26,10 @@ BUCKET_SINK = os.getenv("LOG_LEVEL", "crypto-lakehouse-prod")
 
 # COMMAND ----------
 
-mountPoint = f"/mnt/{BUCKET_SOURCE}/raw/unstructured_data"
+mountPoint = f"/mnt/{BUCKET_SOURCE}/unstructured_data"
+dbutils.fs.unmount(mountPoint)
 if not any(mount.mountPoint == mountPoint for mount in dbutils.fs.mounts()):
-    dbutils.fs.mount(f"s3a://{access_key}:{encoded_secret_key}@{BUCKET_SOURCE}", mountPoint)
+    dbutils.fs.mount(f"s3a://{access_key}:{encoded_secret_key}@{BUCKET_SOURCE}/unstructured_data", mountPoint)
 
 # COMMAND ----------
 
@@ -38,20 +39,23 @@ if not any(mount.mountPoint == mountPoint for mount in dbutils.fs.mounts()):
 # COMMAND ----------
 
 mountPoint = f"/mnt/{BUCKET_SINK_DEV}/bronze"
+dbutils.fs.unmount(mountPoint)
 if not any(mount.mountPoint == mountPoint for mount in dbutils.fs.mounts()):
-    dbutils.fs.mount(f"s3a://{access_key}:{encoded_secret_key}@{BUCKET_SINK_DEV}", mountPoint)
+    dbutils.fs.mount(f"s3a://{access_key}:{encoded_secret_key}@{BUCKET_SINK_DEV}/bronze", mountPoint)
 
 # COMMAND ----------
 
 mountPoint = f"/mnt/{BUCKET_SINK_DEV}/silver"
+dbutils.fs.unmount(mountPoint)
 if not any(mount.mountPoint == mountPoint for mount in dbutils.fs.mounts()):
-    dbutils.fs.mount(f"s3a://{access_key}:{encoded_secret_key}@{BUCKET_SINK_DEV}", mountPoint)
+    dbutils.fs.mount(f"s3a://{access_key}:{encoded_secret_key}@{BUCKET_SINK_DEV}/silver", mountPoint)
 
 # COMMAND ----------
 
 mountPoint = f"/mnt/{BUCKET_SINK_DEV}/gold"
+dbutils.fs.unmount(mountPoint)
 if not any(mount.mountPoint == mountPoint for mount in dbutils.fs.mounts()):
-    dbutils.fs.mount(f"s3a://{access_key}:{encoded_secret_key}@{BUCKET_SINK_DEV}", mountPoint)
+    dbutils.fs.mount(f"s3a://{access_key}:{encoded_secret_key}@{BUCKET_SINK_DEV}/gold", mountPoint)
 
 # COMMAND ----------
 
@@ -61,29 +65,28 @@ if not any(mount.mountPoint == mountPoint for mount in dbutils.fs.mounts()):
 # COMMAND ----------
 
 mountPoint = f"/mnt/{BUCKET_SINK}/bronze"
+dbutils.fs.unmount(mountPoint)
 if not any(mount.mountPoint == mountPoint for mount in dbutils.fs.mounts()):
-    dbutils.fs.mount(f"s3a://{access_key}:{encoded_secret_key}@{BUCKET_SINK}", mountPoint)
+    dbutils.fs.mount(f"s3a://{access_key}:{encoded_secret_key}@{BUCKET_SINK}/bronze", mountPoint)
 
 # COMMAND ----------
 
 mountPoint = f"/mnt/{BUCKET_SINK}/silver"
+dbutils.fs.unmount(mountPoint)
 if not any(mount.mountPoint == mountPoint for mount in dbutils.fs.mounts()):
-    dbutils.fs.mount(f"s3a://{access_key}:{encoded_secret_key}@{BUCKET_SINK}", mountPoint)
+    dbutils.fs.mount(f"s3a://{access_key}:{encoded_secret_key}@{BUCKET_SINK}/silver", mountPoint)
 
 # COMMAND ----------
 
 mountPoint = f"/mnt/{BUCKET_SINK}/gold"
+dbutils.fs.unmount(mountPoint)
 if not any(mount.mountPoint == mountPoint for mount in dbutils.fs.mounts()):
-    dbutils.fs.mount(f"s3a://{access_key}:{encoded_secret_key}@{BUCKET_SINK}", mountPoint)
+    dbutils.fs.mount(f"s3a://{access_key}:{encoded_secret_key}@{BUCKET_SINK}/silver", mountPoint)
 
 # COMMAND ----------
 
 # MAGIC %md
 # MAGIC ###Test
-
-# COMMAND ----------
-
-display(dbutils.fs.mounts())
 
 # COMMAND ----------
 
